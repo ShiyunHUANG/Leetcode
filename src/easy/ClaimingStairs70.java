@@ -2,16 +2,14 @@ package easy;
 
 public class ClaimingStairs70 {
     public int climbStairs(int n) {
-        int set;
-        int twos = 0;
-        int ones = n - twos;
-        if (n % 2 == 0){
-            set = n / 2 + 1;//odd
+        //2 scenarios: last step is 1, last step is 2
+        int[] dp = new int[n + 1]; //number of methods for each stair number
+        if (n == 1) return 1;
+        dp[1] = 1;
+        dp[2] = 2;
+        for(int i = 3; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
         }
-        else {
-            set = (n + 1) / 2;//even
-        }
-        return ones;//temp
-
+        return dp[n];        
     }
 }

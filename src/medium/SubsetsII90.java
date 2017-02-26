@@ -8,6 +8,25 @@ import java.util.List;
 import java.util.Set;
 
 public class SubsetsII90 {
+    //Feb 25, 2017
+    public List<List<Integer>> subsetsWithDup2(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        dfs(res, new ArrayList<Integer>(), nums, 0);
+        return res;
+    }
+    private void dfs(List<List<Integer>> res, List<Integer> subset, int[] nums, int idx) {
+        res.add(new ArrayList<Integer>(subset));
+        if(idx >= nums.length) return; //after the above line
+        for(int i = idx; i < nums.length; i++) {
+            if(i > idx && nums[i] == nums[i - 1]) continue; //!!
+            subset.add(nums[i]);
+            dfs(res, subset, nums, i + 1);
+            subset.remove(subset.size() - 1);
+        }
+    }
+    
+    
     public List<List<Integer>> subsetsWithDup(int[] nums) {
         Arrays.sort(nums);//static method. ascending sort.
         List<List<Integer>> res = new ArrayList<List<Integer>>();
