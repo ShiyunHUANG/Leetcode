@@ -22,7 +22,7 @@ public class LongestPalindromicSubstring5 {
         int len = s.length();
         boolean dp[][] = new boolean [len][len];
         for(int x = 1; x < len; x++) {
-            for(int y = x- 1; y >= 0 ; y--) {
+            for(int y = x - 1; y >= 0 ; y--) {
                 boolean isPalinInside = (x - y <= 2) || (dp[x - 1][y + 1]);
                 if((s.charAt(x) == s.charAt(y)) && isPalinInside) {
                     dp[x][y] = true;
