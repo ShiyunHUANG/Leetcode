@@ -44,7 +44,7 @@ public class _KNearestPoints {
         });
         for(Point p : points) {
             pq.add(p);
-//            if(pq.size() > k) pq.poll(); //!!!No need to poll(), poll() is from head
+//            if(pq.size() > k) pq.poll(); //!!!don't poll()! poll() is from head
         }
         Point[] res = new Point[k];
         for(int i = 0; i < k; i++) {
