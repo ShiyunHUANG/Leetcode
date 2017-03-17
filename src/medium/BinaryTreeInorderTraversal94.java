@@ -11,6 +11,45 @@ import java.util.Stack;
  *
  */
 public class BinaryTreeInorderTraversal94 {
+    //second
+    //inorder: left => mid => right
+    private List<Integer> list = new ArrayList<Integer>();
+    public List<Integer> inorderTraversal2(TreeNode root) {
+        // dfs(root);
+        loop(root);
+        return list;
+    }
+    //recursive solution
+    private void dfs(TreeNode node) {
+        if(node == null) return;
+        dfs(node.left);
+        list.add(node.val);
+        dfs(node.right);
+    }
+    //iterative solution
+    private Stack<TreeNode> stack = new Stack<TreeNode>();
+    private void loop(TreeNode node) {
+        while(node != null || !stack.isEmpty()) {
+            while(node != null) {
+                stack.push(node);
+                node = node.left;
+            }
+            node = stack.pop();
+            list.add(node.val);
+            node = node.right; //don't need to check if node is null, don't need to push into stack
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+    //first
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<Integer>();
         Stack<TreeNode> stack = new Stack<TreeNode>();

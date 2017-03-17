@@ -16,24 +16,25 @@ Input: "cbbd"
 
 Output: "bb"*/
 public class LongestPalindromicSubstring5 {
+    private int resX = 0, resY = 0; //if resY = 1 can't pass "abcda"
     public String longestPalindrome(String s) {
-        if(s == null || s.length() < 2) return s;
-        int resX = 0, resY = 0; //if resX = 1 can't pass "abcda"
+        if(s == null || s.length() <= 1) return s;
         int len = s.length();
-        boolean dp[][] = new boolean [len][len];
-        for(int x = 1; x < len; x++) {
-            for(int y = x- 1; y >= 0 ; y--) {
-                boolean isPalinInside = (x - y <= 2) || (dp[x - 1][y + 1]);
-                if((s.charAt(x) == s.charAt(y)) && isPalinInside) {
+        //dp 2D matrix, x is substring start index, y is substring end idx
+        boolean[][] dp = new boolean[len][len + 1]; //default to be false
+        for(int y = 1; y < len; y++) { //substring end index
+            for(int x = y - 1; x >= 0; x--) { //substring start index
+                boolean isPalinInside = (y - x <= 2) || dp[x + 1][y - 1]; //2 not 1
+                if(s.charAt(x) == s.charAt(y) && isPalinInside) {
                     dp[x][y] = true;
-                    if(x - y >= resX - resY) { //if only > can't pass "cbbd"
+                    //check if it is the longest 
+                    if(y - x > resY - resX) {
                         resX = x;
                         resY = y;
                     }
                 }
-                
             }
         }
-        return s.substring(resY, resX + 1);
+        return s.substring(resX, resY + 1);
     }
 }
