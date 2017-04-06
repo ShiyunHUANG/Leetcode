@@ -5,13 +5,35 @@ import java.util.Stack;
 //dfs inorder traversal
 //notice ALL nodes on the left should be smaller than ALL right, so BFS WON'T work
 public class ValidateBinarySearchTree98 {
+    //second
+  //inorder traversal: left most => mid => right
+    public boolean isValidBST4(TreeNode root) {
+        Integer prev = null;
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        while (root != null || !stack.isEmpty()) { //don't forget ! before isEmpty()
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+            //root is null here
+            // if (!stack.isEmpty()) {
+                root = stack.pop();
+                if (prev != null && root.val <= prev) return false;
+                prev = root.val; //no else here
+                root = root.right;
+            // }
+        }
+        return true;
+    }
+    
+    
     //add the node if not null
     //node moves left then right
     //compare this pop with previous pop
     public boolean isValidBST(TreeNode root) {
         if (root == null) return true;
         Stack<TreeNode> stack = new Stack<TreeNode>();
-        TreeNode pre = null;
+        Integer pre = null;
         while (root != null || !stack.isEmpty()) {
             while (root != null) {
                 stack.push(root);
@@ -20,11 +42,11 @@ public class ValidateBinarySearchTree98 {
             }
             root = stack.pop();
             System.out.println("pop: " + root.val);
-            if(pre != null && root.val <= pre.val) {
-                System.out.println(root.val + " " + pre.val);
+            if(pre != null && root.val <= pre) {
+                System.out.println(root.val + " " + pre);
                 return false;
             }
-            pre = root;
+            pre = root.val; //not in else clause, either way pre needs to move 
             root = root.right;
         }
         return true;

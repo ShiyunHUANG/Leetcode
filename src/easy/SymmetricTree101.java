@@ -2,6 +2,7 @@ package easy;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Another way to do this is to use similar method as "Same Tree", check each node.
 
@@ -18,6 +19,22 @@ import java.util.List;
 
  */
 public class SymmetricTree101 {
+    //4/2/2017
+    public boolean isSymmetric2(TreeNode root) {
+        if (root == null) return true;
+        return dfs(root.left, root.right);
+        
+    }
+    public boolean dfs(TreeNode left, TreeNode right) {
+        if (left == null && right == null) return true;
+        if (left == null || right == null) return false;
+        if (left.val != right.val) return false;
+        return dfs(left.left, right.right) && dfs(left.right, right.left);
+    }
+    
+    
+    
+    //first
     public boolean isSymmetric(TreeNode root) {
         if(root == null) return true;
         List<Integer> pathR = new ArrayList<Integer>();
